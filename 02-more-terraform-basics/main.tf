@@ -25,18 +25,9 @@ provider "aws" {
     secret_key = "${var.secret_key}"
 }
 
-#resource provider: aws
-#resource type: s3_bucket
-#resource name: my_s3_bucket (for referencing the resource)
-resource "aws_s3_bucket" "my_s3_bucket" {
-    bucket = "my-s3-bucket-topdevops-002" #s3 bucket names must be globaly unique
-    versioning{
-        enabled = true
-    }  
-}
-
 resource "aws_iam_user" "my_iam_user" {
-    name = "my_iam_user_abc_updated"  
+  count = 2
+    name = "my_iam_user_${count.index}"  
 }
 
 
