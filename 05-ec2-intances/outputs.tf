@@ -4,14 +4,6 @@
 
 #for changing an output u doesn need to compare your desired state (this file) with the actual state(the cloud state)
 #so u can use $terraform apply --refresh=false
-output "my_s3_bucket_versioning" {
-  value = aws_s3_bucket.my_s3_bucket.versioning[0].enabled
-}
-
-output "my_s3_bucket_details" {
-  value = aws_s3_bucket.my_s3_bucket
-}
-
-output "my_iam_user_details" {
-  value = aws_iam_user.my_iam_user
+output "aws_security_group_http_server_details" {
+  value = aws_security_group.http_server_sg
 }
