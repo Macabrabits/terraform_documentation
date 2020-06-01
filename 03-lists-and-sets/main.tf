@@ -34,15 +34,19 @@ provider "aws" {
 #$terraform plan -refresh=false -var="iam_user_name_prefix=VALUE_FROM_COMMAND_LINE" // Defines variable in the command line
 #Variables can also be assumed from './terraform.tfvars'
 #if the variables are in a different tfvars file, use $terraform plan/apply -var-file="<filename>.tfvars"
-variable "iam_user_name_prefix" {
-  default = "my_iam_user"
+variable "names" {
+  default = ["Susan", "Dante", "Tom", "Jane"]
 }
 
 
 
 resource "aws_iam_user" "my_iam_user" {
-  count = 2
-  name  = "${var.iam_user_name_prefix}_${count.index}"
+  # This is problematic, since terraform get lost if you add a value anywhere but at the end of the list, since it uses the index of the list as a reference  
+  # count = length(var.names)
+  # name  = var.names[count.index]
+  # This fixes the problem
+  for_each = toset(var.names)  
+  name = each.value
 }
 
 
