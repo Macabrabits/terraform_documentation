@@ -54,13 +54,21 @@ resource "aws_security_group" "http_server_sg" {
   }
 
   tags = {
-    name: "http_server_sg"
+    name : "http_server_sg"
   }
 }
 
 
 
+# Key pairs automatically referenced of ~/aws/aws_keys, there must be the private keys used on the following resource!
+resource "aws_instance" "http_server" {
+  ami                    = "ami-09d95fab7fff3776c"
+  key_name               = "default-ec2"
+  instance_type          = "t2.micro"
+  vpc_security_group_ids = [aws_security_group.http_server_sg.id]
+  subnet_id              = "subnet-01b3090f"
 
 
+}
 
 
