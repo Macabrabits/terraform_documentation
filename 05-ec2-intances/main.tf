@@ -20,6 +20,11 @@ variable "secret_key" {
   type = string
 }
 
+variable "aws_key_pair" {
+  type    = string
+  default = "~/aws/aws_keys/default-ec2.pem"
+}
+
 provider "aws" {
   region     = "us-east-1"
   version    = "~> 2.63"
@@ -67,6 +72,23 @@ resource "aws_instance" "http_server" {
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.http_server_sg.id]
   subnet_id              = "subnet-01b3090f"
+
+  connection {
+    type        = "ssh"
+    host        = self.public_ip
+    user        = "ec2-user"
+    private_key = file(var.aws_key_pair) #must be extension .pem, not .ppk
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo yum install httpd -y",
+      "sudo service httpd start",
+      "echo Wlcome to myServer - Virtual Server is at ${self.public_dns} | sudo tee /var/www/html/index.html"
+    ]
+  }
+
+
 
 
 }

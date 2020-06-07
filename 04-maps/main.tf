@@ -32,9 +32,9 @@ provider "aws" {
   
 variable "users" {
   default = {
-    ravs : { country : "Netherlands", department : "ABC" },
+    suzan : { country : "Netherlands", department : "ABC" },
     tom : { country : "US", department : "DEF" },
-    jane : { country : "India", department : "XYZ" }
+    camila : { country : "Brazil", department : "XYZ" }
   }
 }
 
