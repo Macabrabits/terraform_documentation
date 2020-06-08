@@ -1,3 +1,0 @@
-ami-09d95fab7fff3776c
-t2.micro
-vpc-cdb3aeb7
