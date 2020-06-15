@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:  
+
+  ubuntu:
+    build:
+      context: .    
+    volumes:
+      - .:/var/terraform
+      # - C:/Users/Dev/.aws:/root/.aws #terraform use these files to authenticate automatically
+    
+
+  
+
+      
